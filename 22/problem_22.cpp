@@ -40,7 +40,7 @@ private:
 } name_adder;
 
 
-TEST(protblem_22, read_file) {
+TEST(problem_22, read_file) {
     vector<string> names = read_names("p022_names.txt");
 
     EXPECT_EQ("MARY", names.at(0));
