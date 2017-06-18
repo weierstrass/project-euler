@@ -7,7 +7,7 @@
 
 ```cmake . -DCMAKE_BUILD_TYPE=Debug && make```
 
-## Compile in debug mode
+## Compile in release mode
 
 ```cmake . -DCMAKE_BUILD_TYPE=Release && make```
 
