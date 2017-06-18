@@ -5,50 +5,38 @@
 #include <string>
 #include <numeric>
 #include <cmath>
+#include <map>
 
 using namespace std;
 
 static const int MAX_VAL(28123);
 
+int get_divisor_sum(const int num) {
+    int sum(1);
+    const int lim(sqrt(num));
 
-struct is_divisor {
-
-    is_divisor(int num) : m_num(num) {}
-    
-    bool operator()(int divisor_cand) {
-        return m_num % divisor_cand == 0;
+    for (int i = 2; i <= lim; ++i) {
+        if (num % i == 0) {
+            sum += i;
+            if (i != (num / i) && (num / i) != num) {
+                sum += num/i;
+            }
+        }
     }
-
-private:
-    int m_num;
-};
+    return sum;
+}
 
 struct abundant_finder {
-    bool operator()(int val) {
-//        cout << sqrt(val) << endl;
-
-        vector<int> divisor_cands(val/2);
-        iota(begin(divisor_cands), end(divisor_cands), 1);
-                
-        vector<int> divisors(val/2);
-        auto it =
-            copy_if(divisor_cands.begin(), divisor_cands.end(), divisors.begin(), is_divisor(val));
-        divisors.resize(distance(divisors.begin(), it));
-
-        return accumulate(divisors.begin(), divisors.end(), 0) > val;
+    
+    bool operator()(const int val) {
+        return get_divisor_sum(val) > val;
     }
+
 } is_abundant;
 
-TEST(problem_23, divisor_finder) {
-    is_divisor divisor_finder(28);
-
-    EXPECT_TRUE(divisor_finder(1));
-    EXPECT_TRUE(divisor_finder(2));
-    EXPECT_TRUE(divisor_finder(4));
-    EXPECT_TRUE(divisor_finder(7));
-    EXPECT_TRUE(divisor_finder(14));
-    EXPECT_FALSE(divisor_finder(15));
-    EXPECT_FALSE(divisor_finder(56));
+TEST(problem_23, divisor_sum) {
+    EXPECT_EQ(28, get_divisor_sum(28));
+    EXPECT_EQ(16, get_divisor_sum(12));
 }
 
 TEST(problem_23, abundant_finder) {
@@ -60,49 +48,35 @@ TEST(problem_23, abundant_finder) {
     EXPECT_FALSE(is_abundant(34));
 }
 
-
 TEST(problem_23, full) {
-
-    vector<int> all_vals(MAX_VAL);
-    iota(begin(all_vals), end(all_vals), 1);
-
-    EXPECT_EQ(5, all_vals.at(4));
-
-
-    vector<int> abundant_nums(MAX_VAL);
-
-    auto it = copy_if(all_vals.begin(), all_vals.end(), abundant_nums.begin(), is_abundant);
-    abundant_nums.resize(distance(abundant_nums.begin(), it));
-
-    vector<int> abundant_sums;
-
-    for (int term1 : abundant_nums) {
-        for (int term2 : abundant_nums) {
-            int sum = term1 + term2;
-            if (sum <= MAX_VAL)
-                abundant_sums.push_back(sum);
-        }
-    }
-
-    sort(abundant_sums.begin(), abundant_sums.end());
-    abundant_sums.erase(unique(abundant_sums.begin(), abundant_sums.end()), abundant_sums.end());
-
+    // Find all abundant numbers.
     vector<int> all_nums(MAX_VAL);
     iota(begin(all_nums), end(all_nums), 1);
 
-    cout << abundant_sums.size() << ", " << all_nums.size() << endl;
+    vector<int> abundant_nums(MAX_VAL);
 
-     std::vector<int> non_abundant_sums;
+    auto it = copy_if(all_nums.begin(), all_nums.end(), abundant_nums.begin(), abundant_finder());
+    abundant_nums.resize(distance(abundant_nums.begin(), it));
 
-     std::set_symmetric_difference(all_nums.begin(), all_nums.end(),
-                                   abundant_sums.begin(), abundant_sums.end(),
-                                   back_inserter(non_abundant_sums));
+    // Find the sums of all the pairs of abundant numbers.
+    vector<bool> abundant_sum(MAX_VAL);
 
-     std::copy(non_abundant_sums.begin(), non_abundant_sums.end(),
-               std::ostream_iterator<int>(cout, " "));
+    for (size_t i = 0; i < abundant_nums.size(); ++i) {
+        for (size_t j = 0; j <= i; ++j) {
+            int sum = abundant_nums[i] + abundant_nums[j];
+            if (sum <= MAX_VAL){
+                abundant_sum[sum] = true;
+            } else {
+                break;
+            }
+        }
+    }
 
-     int total = accumulate(non_abundant_sums.begin(), non_abundant_sums.end(), 0);
-            
+    // Sum up all numbers that were not a sum of two abundant numbers.
+    int sum(0);
+    for (int i = 0; i < MAX_VAL; ++i) {
+        if (!abundant_sum[i]) sum += i;
+    }
     
-    EXPECT_EQ(52749780, total);
+    EXPECT_EQ(4179871, sum);
 }

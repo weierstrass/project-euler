@@ -35,6 +35,7 @@
 *.dSYM/
 *.su
 */cachegrind.out*
+*/callgrind.out*
 *~
 
 # cmake
@@ -52,3 +53,5 @@ CPackSourceConfig.cmake
 Debug/*
 Release/*
 _CPack_Packages/*
+
+.DS_Store
