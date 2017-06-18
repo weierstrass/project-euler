@@ -1,6 +1,6 @@
 # Project Euler
 
-![Weierstrass](http://projecteuler.net/profile/weierstrass.png)
+![Weierstrass](https://projecteuler.net/profile/weierstrass.png)
 
 Some of my solutions for https://projecteuler.net/ Most of them are written in C or C++. The execution time is when run on my 2007 MacBook Pro.
 
