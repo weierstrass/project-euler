@@ -8,4 +8,4 @@ Some of my solutions for https://projecteuler.net/ Most of them are written in C
 
 ## [Problem 23](23/README.md) - C++ - 70ms
 
-## [Problem 26](26/README.md) - C++ - 20ms
+## [Problem 26](26/) - C++ - 20ms
