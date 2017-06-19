@@ -7,3 +7,5 @@ Some of my solutions for https://projecteuler.net/ Most of them are written in C
 ## [Problem 22](22/README.md) - C++ - 5ms
 
 ## [Problem 23](23/README.md) - C++ - 70ms
+
+## [Problem 26](23/README.md) - C++ - 20ms
