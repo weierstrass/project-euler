@@ -28,7 +28,7 @@ TEST(problem_30, fifth_power) {
 TEST(problem_30, full) {
     int sum(0);
 
-    for (int n = 3125; n <= 10e6; ++n) {
+    for (int n = 3125; n <= 354294; ++n) {
         if (fifth_power_for_number(n)) {
             sum += n;
         }
