@@ -11,3 +11,5 @@ Some of my solutions for https://projecteuler.net/ Most of them are written in C
 ## [Problem 26](26/) - C++ - 20ms
 
 ## [Problem 28](28/) - C++ - 0.1ms
+
+## [Problem 29](29/) - C++ - 1ms
