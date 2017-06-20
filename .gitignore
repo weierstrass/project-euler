@@ -55,3 +55,4 @@ Release/*
 _CPack_Packages/*
 
 .DS_Store
+.#*
