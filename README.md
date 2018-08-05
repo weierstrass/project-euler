@@ -18,6 +18,8 @@ Some of my solutions for https://projecteuler.net/ Most of them are written in C
 
 ## [Problem 31](31/) - C++ - 4ms
 
+## [Problem 34](34/) - C++ - 105ms
+
 ## [Problem 36](36/) - C++ - 3ms
 
 ## [Problem 40](40/) - C++ - 300ms
